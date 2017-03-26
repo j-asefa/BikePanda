@@ -49,22 +49,16 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		  </button>
-		  <a class="navbar-brand" href="./index.html">Bike Panda</a>
+		  <a class="navbar-brand" href="./index.php">Bike Panda</a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		  <ul class="nav navbar-nav">
-			<li><a href="./index.html">Home<span class="sr-only">(current)</span></a></li>
+			<li><a href="./index.php">Home<span class="sr-only">(current)</span></a></li>
 		  </ul>
           <ul class="nav navbar-nav navbar-right">  
-			<li>
-                <?php if(isset($_SESSION["id"])): ?>
-                    <a href="./index.html">Log out<span class="sr-only">(current)</span></a>
-                <?php else: ?>
-                    <a href="./login.html">Log in<span class="sr-only">(current)</span></a>
-                <?php endif; ?>
-            </li>
+                    <li><a href="./logout.php">Log out<span class="sr-only">(current)</span></a></li>
 		  </ul> 
 		  <ul class="nav navbar-nav navbar-right">
 			<li><a href="./about.html">About Us</a></li>

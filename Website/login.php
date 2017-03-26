@@ -28,16 +28,16 @@ if(isset($_POST["username"], $_POST["password"]))
 		$verify = password_verify($_POST["password"], $user_password);
         }
 
-	if ($verify) {
-		$_SESSION["id"]=$username;
-		$_POST["password"];
-	}
-
-        $stmt->close();
+	$stmt->close();
         $conn->close();
 
-        //header( 'Location: ./progress.php' );
+	if ($verify) {
+		$_SESSION["id"]=$username;
+		header( 'Location: ./progress.php' );
+	} else {
+		header( 'Location: ./login.html' );	
+	}
 } else {
-        echo "post parameters not set";
+	header( 'Location: ./login.html' );
 }
 ?>
