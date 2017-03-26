@@ -18,7 +18,7 @@ if(isset($_POST["username"], $_POST["password"]))
         $username = $_POST["username"];
 
         if (!$stmt->execute()) {
-            die("Execute failed: (" . $stmt->errno . ") " . $stmt->error);
+		die("Execute failed: (" . $stmt->errno . ") " . $stmt->error);
         }
 
 	$stmt->bind_result($user_password);
