@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -95,11 +96,15 @@
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		  <ul class="nav navbar-nav">
-			<li><a href="./login.html">Log in<span class="sr-only">(current)</span></a></li>
-		  </ul>
 		  <ul class="nav navbar-nav navbar-right">
 			<li><a href="./about.html">About Us</a></li>
+			<li>
+			<?php if(isset($_SESSION["id"])): ?>
+			<a href="./logout.php">Log out<span class="sr-only">(current)</span></a>
+			<?php else: ?>
+			<a href="./login.html">Log in<span class="sr-only">(current)</span></a>
+			<?php endif;?>
+			</li>
 		  </ul>
 		</div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->

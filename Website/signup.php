@@ -35,7 +35,7 @@ if(isset($_POST["firstname"], $_POST["lastname"], $_POST["username"], $_POST["em
 	$stmt->close();
 	$conn->close();
 
-	header( 'Location: ./progress.html' );
+	header( 'Location: ./progress.php' );
 } else {
 	echo "post parameters not set";
 }

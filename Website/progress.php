@@ -61,7 +61,7 @@
                     <li><a href="./logout.php">Log out<span class="sr-only">(current)</span></a></li>
 		  </ul> 
 		  <ul class="nav navbar-nav navbar-right">
-			<li><a href="./about.html">About Us</a></li>
+			<li><a href="./about.php">About Us</a></li>
 		  </ul>
 		</div><!-- /.navbar-collapse -->
      </div><!-- /.container-fluid -->
