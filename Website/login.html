@@ -94,20 +94,20 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		  </button>
-		  <a class="navbar-brand" href="./index.html"><img class="navlogo" src="./images/BikePandaLogo.png"></a>
-		  <a class="navbar-brand" href="./index.html">Bike Panda</a>
+		  <a class="navbar-brand" href="./index.php"><img class="navlogo" src="./images/BikePandaLogo.png"></a>
+		  <a class="navbar-brand" href="./index.php">Bike Panda</a>
 		</div>
 
           
         
-            <form class="navbar-form navbar-nav navbar-right">
+            <form action="./login.php" method="post" class="navbar-form navbar-nav navbar-right">
             <div class="form-group">
                 <!--<label>Password</label>-->
-                <input type="email text" class="form-control" placeholder="Username or email">
+                <input type="text" name="username" class="form-control" placeholder="Username or email">
             </div>
             <div class="form-group">
                 <!--<label>Password</label>-->
-                <input type="password" class="form-control" placeholder="Password">
+                <input type="password" name="password" class="form-control" placeholder="Password">
             </div>    
             <button type="submit" class="btn btn-default">Login</button>    
             </form>    
@@ -127,7 +127,7 @@
     <!-- BreadCrumb -->
     <div class="container">
                 <ol class="breadcrumb">
-                  <li><a href="./index.html">Home</a></li>
+                  <li><a href="./index.php">Home</a></li>
                   <li class="active">Account</li>
                 </ol>
 
