@@ -34,7 +34,7 @@
     </style>
     
     <script src="./js/chart.js/dist/Chart.js"></script>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   </head>
     
   <body>
@@ -66,7 +66,22 @@
 		</div><!-- /.navbar-collapse -->
      </div><!-- /.container-fluid -->
 	</nav>
-    
+    <script>
+    			var omarTime;
+			var poll = function(){
+				$.ajax(
+				{
+					url://php,
+					dataType:'json',
+					type: 'get',
+					//async
+					success: function(data){
+				omarTime=data.Time;
+					},
+					error: function(){}
+				});
+			};
+	</script>
     <!-- GRID CONTAINING THE GRAPH AND RELEVANT INFORMATION -->
     <div class="container-fluid text-center" >
         <div class="row" >
@@ -81,7 +96,9 @@
                     <hr>
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-info"><b>Past Trips</b></li>
-                        <a href="#" class="list-group-item">Date 1</a>
+
+                        <a href="#" class="list-group-item" value=""></a>
+			
                         <a href="#" class="list-group-item">Date 2</a>
                         <a href="#" class="list-group-item">Date 3</a>
                         <a href="#" class="list-group-item">Date 4</a>
@@ -189,7 +206,7 @@
                     <!-- PANELS -->  
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Data 1</h3>
+                            <h3 class="panel-title">Speed</h3>
                         </div>
                         <div class="panel-body">
                         Val 1
@@ -207,7 +224,7 @@
                     <hr>
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Data 3</h3>
+                            <h3 class="panel-title">Distance</h3>
                         </div>
                         <div class="panel-body">
                         Val 3
@@ -216,7 +233,7 @@
                     <hr>
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <h3 class="panel-title">Data 4</h3>
+                            <h3 class="panel-title">Calories</h3>
                         </div>
                         <div class="panel-body">
                         Val 4
