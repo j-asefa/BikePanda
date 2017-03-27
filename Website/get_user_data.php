@@ -73,7 +73,7 @@ if ($result = $mysqli->query("SELECT calories, distance, DATE(time) as time FROM
 	$novarr = array('calories' => $novcals, 'distance' => $novdist);
 	$decarr = array('calories' => $deccals, 'distance' => $decdist);
 	$json_array = array('jan' => $janarr, 'feb' => $febarr, 'mar' => $mararr, 'apr' => $aprarr, 'may' => $mayarr, 'june' => $junearr, 'july' => $julyarr, 'aug' => $augarr, 'sept' => $septarr, 'oct' =>$octarr, 'nov' => $novarr, 'dec' => $decarr);
-	//$json_array = json_encode($json_array);
+	$json_array = json_encode($json_array);
 	echo $json_array;
 	$result->close();
 } else {
