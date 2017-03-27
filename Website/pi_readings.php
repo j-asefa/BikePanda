@@ -51,20 +51,20 @@ if (mysqli_connect_errno()) {
 
 //echo file_get_contents("php://input");
 $content = file_get_contents("php://input");
-$json_string = json_decode($content);
-var_dump($json_string);
+$json_string = json_decode($content, true);
 
 if(!is_array($json_string)){
-	//die('Received content contained invalid JSON!');
+	die('Received content contained invalid JSON!');
 }
 
 $Bike_Speed = $json_string["Bike_Speed"];
 $distance = $json_string["Trip_Distance"];
 $altitude = $json_string["Total_Distance"];
 $trip_id = $json_string["Trip_ID"];
-$time = $json_string["Time"];
+date_default_timezone_set('America/Vancouver');
+$time = date("Y-m-d H:i:s");
 //echo "bike speed = ".$Bike_Speed . " trip distance = ". $distance . " total distance = ".$altitude . " time = ".$time . " trip id = ".$trip_id;
-/*
+
 if($stmt = $conn->prepare("INSERT INTO bikedata (speed, altitude, distance, time) VALUES (?, ?, ?, ?)")) {
 	$stmt->bind_param("ssss", $Bike_Speed, $altitude, $distance, $time);
 } else {
@@ -74,8 +74,12 @@ if($stmt = $conn->prepare("INSERT INTO bikedata (speed, altitude, distance, time
 if (!$stmt->execute()) {
     die("Execute failed: (" . $stmt->errno . ") " . $stmt->error);
 }
-//echo "New record created successfully";
-//$stmt->close();
-*/
+echo "New record created successfully";
+$stmt->close();
 $mysqli->close();
 ?>
+
+<!DOCTYPE html>
+<html>
+	<p>Value inserted: <?php echo $json_string?></p>	
+</html>
