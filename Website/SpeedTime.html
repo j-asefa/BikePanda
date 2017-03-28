@@ -3,88 +3,100 @@
 
 <head>
     <title>Speed vs Time Graph</title>
-    <script src="/usr/local/lib/node_modules/chart.js/dist/Chart.js"></script>
+    <script src="./js/chart.js/dist/Chart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body>
     <canvas id="SpeedTimeChart" width="400" height="200"></canvas>
 <script>
+var startTime = '';
+var responseData = [];
+ $.ajax(
+                {
+                    url:'./speedvstime.php',
+                    dataType:'json',
+                    async: 'false',
+                    type: 'get',
+                    data: {tripid: 54},
+                    success: function(data){
+                        var i;
+                        for ( i = 0; i < data.length - 1; i++){
+                            	responseData.push( {x: data[i].time, y: data[i].speed} )
+                        }
+			startTime = "Name, " + data[i].start_time;
+						
+                    },
+                    error: function(){}
+                });
+
 var ctx = document.getElementById("SpeedTimeChart");
-var myChart = new Chart(ctx, {
+var configuration = {
     type: 'line',
     data: {
         datasets: [{
-            borderColor: "rgb(28, 103, 3)",
-            pointBackgroundColor: "rgba(28, 103, 3)",
-            fill: false,
-            data: [{
-                x: 2,
-                y: 10
-            }, {
-                x: 3,
-                y: 8
-            }, {
-                x: 4,
-                y: 9
-            }, {
-                x: 5,
-                y: 7
-            },{
-                x: 6,
-                y: 10
-            }, {
-                x: 7,
-                y: 13
-            },{
-                x: 8,
-                y: 15
-            }, {
-                x: 9,
-                y: 17
-            },{
-                x: 10,
-                y: 19
-            }]
+            borderColor: "rgb(8, 96, 8)",
+            pointBackgroundColor: "rgb(8, 96, 8)",
+            fill: true,
+            backgroundColor: "rgba(8, 96, 8, 0.2)",
+            data: responseData
         }]
     },
     options: {
-        title:{
-             display: true,
-            text: "Speed(km/h) vs. Time(min)"
+        title: {
+            display: true,
+            text: startTime,
+            fontColor: "rgb(0, 0, 0)"
         },
         legend:{
             display: false
         },
         scales: {
-            
             xAxes: [{
-                type: 'linear',
-                position: 'bottom',
+                type: "linear",
+                position: "bottom",
                 scaleLabel: {
                     display: true,
-                    labelString: "something in here"
+                    labelString: "Time in minutes",
+                    fontColor: "rgb(0, 0, 0)"
                 },
                 ticks: {
                     min: 0,
-                    max: 20
+                    fontColor: "rgb(0, 0, 0)"
+                },
+            
+                gridLines: {
+                    zeroLineColor: "rgb(0, 0, 0)"
                 }
             }],
             yAxes: [{
+                type: "linear",
+                position: "left",
                 scaleLabel: {
                     display: true,
-                    labelString: "something else in here"
+                    labelString: "Speed in km/h",
+                    fontColor: "rgb(0, 0, 0)"
                 },
                 ticks: {
                     min: 0,
-                    max: 20
+                    max: 35,
+                    fontColor: "rgb(0, 0, 0)"
+                },
+            
+                gridLines: {
+                    zeroLineColor: "rgb(0, 0, 0)"
                 }
             }]
             
         },
         animation: {
-                duration: 0,
+                duration: 900,
                 }
     }
-});
+};
+setTimeout(function() {
+    var myChart = new Chart(ctx, configuration);
+}, 1000);
+
 </script>
 </body>
 
