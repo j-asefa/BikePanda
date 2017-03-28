@@ -66,22 +66,16 @@
 		</div><!-- /.navbar-collapse -->
      </div><!-- /.container-fluid -->
 	</nav>
-    <script>
-    			var omarTime;
-			var poll = function(){
-				$.ajax(
-				{
-					url://php,
-					dataType:'json',
-					type: 'get',
-					//async
-					success: function(data){
-				omarTime=data.Time;
-					},
-					error: function(){}
-				});
-			};
-	</script>
+ 
+
+   <!--  <script type="text/javascript">
+        $(document).ready(function(){
+          $('#testlink').text() = "ABC";
+         });   
+    </script> -->
+
+    
+
     <!-- GRID CONTAINING THE GRAPH AND RELEVANT INFORMATION -->
     <div class="container-fluid text-center" >
         <div class="row" >
@@ -97,11 +91,30 @@
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-info"><b>Past Trips</b></li>
 
-                        <a href="#" class="list-group-item" value=""></a>
-			
-                        <a href="#" class="list-group-item">Date 2</a>
-                        <a href="#" class="list-group-item">Date 3</a>
-                        <a href="#" class="list-group-item">Date 4</a>
+                        <a href="#" class="list-group-item" id="date1"></a>
+                        <a href="#" class="list-group-item" id="date2"></a>
+                        <a href="#" class="list-group-item" id="date3"></a>
+                        <a href="#" class="list-group-item" id="date4"></a>
+
+                        <script type="text/javascript">
+                            var omarTime = "";
+                            //var poll = function(){
+                            $.ajax(
+                            {
+                                url:'./getdatefromdb.php',//php,
+                                dataType:'json',
+                                type: 'GET',
+                                //async
+                                success: function(data){
+                                    $('#date1').text(data[0].time0);
+                                    $('#date2').text(data[1].time1);
+                                    $('#date3').text(data[2].time2);
+                                    $('#date4').text(data[3].time3);
+                                },
+                                error: function(){}
+                                });
+                            //};
+                        </script>
                     </ul>
                 </div>
                 </div>
@@ -242,6 +255,5 @@
                 </div>
         </div>
     </div>
-    
     
 </body>    

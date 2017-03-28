@@ -12,7 +12,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-if ($result = $mysqli->query("SELECT calories, distance, DATE(time) as time FROM bikedata")) {
+if ($result = $mysqli->query("SELECT calories, distance, time FROM bikedata")) {
 	//printf("Select returned %d rows.\n", $result->num_rows);
 	$janarr = $febarr = $mararr = $aprarr = $mayarr = $junearr = $julyarr = $augarr = $septarr = $octarr = $novarr = $decarr = "";
 
@@ -20,11 +20,11 @@ if ($result = $mysqli->query("SELECT calories, distance, DATE(time) as time FROM
 
 	$jandist = $febdist = $mardist = $aprdist = $maydist = $junedist = $julydist = $augdist = $septdist = $octdist = $novdist = $decdist = 0;
 
+	$jantime = $febtime = $martime = $aprtime = $maytime = $junetime = $julytime = $augtime = $septtime = $octtime = $novtime = $dectime = 0;
 	while($row = $result->fetch_assoc()) {
-		$time = "";
 		if(strpos($row["time"], '2010-01') !== false) {
 			$jandist += $row["distance"];
-						$jancals += $row["calories"];
+			$jancals += $row["calories"];
 		} else if(strpos($row["time"], '2010-02') !== false) {
 			$febdist += $row["distance"];
                         $febcals += $row["calories"];
@@ -72,10 +72,10 @@ if ($result = $mysqli->query("SELECT calories, distance, DATE(time) as time FROM
 	$octarr = array('calories' => $octcals, 'distance' => $octdist);
 	$novarr = array('calories' => $novcals, 'distance' => $novdist);
 	$decarr = array('calories' => $deccals, 'distance' => $decdist);
-	$json_array = array('jan' => $janarr, 'feb' => $febarr, 'mar' => $mararr, 'apr' => $aprarr, 'may' => $mayarr, 'june' => $junearr, 'july' => $julyarr, 'aug' => $augarr, 'sept' => $septarr, 'oct' =>$octarr, 'nov' => $novarr, 'dec' => $decarr);
+	$json_array = array('jan' => $janarr, 'feb' => $febarr, 'mar' => $mararr, 'apr' => $aprarr, 'may' => $mayarr, 'jun' => $junearr, 'jul' => $julyarr, 'aug' => $augarr, 'sep' => $septarr, 'oct' =>$octarr, 'nov' => $novarr, 'dec' => $decarr);
 	$json_array = json_encode($json_array);
 	echo $json_array;
-	$result->close();
+	$result->free();
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
