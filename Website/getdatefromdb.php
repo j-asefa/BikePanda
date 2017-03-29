@@ -11,7 +11,7 @@
 		# split date into separate parts
 		$day = substr($date, 8, 9);
 
-		$month = $monthsVals[intval(substr($date, 5, 6))];
+		$month = $monthsVals[intval(substr($date, 5, 6))]; 
 
 		$year = substr($date, 0, 4);
 
@@ -21,7 +21,7 @@
 	if(strcasecmp($_SERVER['REQUEST_METHOD'], 'GET') != 0){
 		die('Get request fialed');
 	}
-	$mysqli = new mysqli("localhost", "jamie", "3parj9Ld5Rs18", "test_db");
+	$mysqli = new mysqli("localhost", "jamie", "3parj9Ld5Rs18", "test_db"); 
 
 	/* check connection */
 	if (mysqli_connect_errno())

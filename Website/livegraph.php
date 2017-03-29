@@ -13,6 +13,7 @@ if (mysqli_connect_errno()) {
 
 $trip_start = 0;
 $time = 0;
+$distance = 0;
 $current_trip = 0;
 $speed = 0;
 
@@ -34,17 +35,18 @@ if ($result = $mysqli->query("SELECT MIN(time) as time FROM bikedata WHERE trip_
     echo "Error2: " . $sql . "<br>" . $mysqli->error;
 }
 
-if ($result = $mysqli->query("SELECT speed, time FROM bikedata WHERE trip_number = '".$current_trip."'")) {
+if ($result = $mysqli->query("SELECT speed, time, distance FROM bikedata WHERE trip_number = '".$current_trip."'")) {
 	while($row = $result->fetch_assoc()) {
 		$time = strtotime($row["time"]) - strtotime($trip_start);
 		$speed = $row["speed"];
+		$distance = $row["distance"];	
         }
         $result->free();
 } else {
     echo "Error3: " . $sql . "<br>" . $mysqli->error;
 }
 
-$arr = array('speed' => intval($speed), 'time' => $time);
+$arr = array('speed' => intval($speed), 'time' => $time, 'distance' => $distance);
 echo json_encode($arr);
 $mysqli->close();
 ?>
