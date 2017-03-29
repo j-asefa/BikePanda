@@ -233,13 +233,13 @@
 			<h4 class="text-center"><i>Available trip data includes:</i></h4>
 			<ul>
 				<li>  Speed versus time</li>
-				<li>  Altitude versus time</li>
+				<li>  Altitude versus distance</li>
 				<li>  Distance travelled</li>
 				<li>  Time spent on bike</li>
-				<li>  Calories burned</li>
+				<li>  Calories burned over time</li>
 			</ul>
 		</div>
-		<div class="col-md-5"><img class="img-thumbnail productimage" src="./images/graph.jpg" alt="Graphed Data"></div>
+		<div class="col-md-5"><img class="img-thumbnail productimage" src="./images/bikegraph.jpg" alt="Graphed Data"></div>
 		<div class="col-md-1"></div>
 	</div>
 	<div class="container lettherebewhite">

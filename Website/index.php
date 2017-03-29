@@ -51,7 +51,7 @@
 			width: auto;
 		}
 		.bgimage{
-			background-image: url('./images/naturepath.jpg');
+			background-image: url('./home.jpg');
 			background-size:100% 100%;
 			background-repeat: no-repeat;
 				height: auto;
@@ -74,6 +74,13 @@
 			display: flex;
 			align-items: center;
 		}
+		@font-face {
+			font-family: Simp;
+			src: local('Simplifica Regular'), local('Simplifica'); 
+			src: url(./fonts/SIMPLIFICA.ttf) format('truetype'); 
+  			font-weight: normal;
+  		}
+
 		h1 {
 			font-weight: bold;
 			color: #fff;
@@ -123,7 +130,7 @@
 				<?php if(isset($_SESSION["id"])): ?>
 				<a href="./logout.php">Log out<span class="sr-only">(current)</span></a>
 				<?php else: ?>
-				<a href="./login.html">Log in<span class="sr-only">(current)</span></a>
+				<a href="./login.html">Log in / Sign up<span class="sr-only">(current)</span></a>
 				<?php endif;?>
 			</li>
 		  </ul> 
@@ -137,11 +144,11 @@
 	<!-- JUMBOTRON -->
 	<div class="jumbotron text-center vertical-center bgimage">
 	  <div class="container">
-		<h1>Bike Panda</h1>
+		<h1  id="myfont">Bike Panda</h1>
 		<br>
 		<img class="img-circle coverlogo" src="./images/BikePandaLogo.png" alt="Bike Panda Logo">
 		<br><br><br>
-		<a href="./login.html" class="btn btn-lg btn-default">Log In / Sign Up</a>
+		<a href="./about.php" class="btn btn-lg btn-default">Learn more</a>
 	  </div>
 	</div>      
     

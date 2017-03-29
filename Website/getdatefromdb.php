@@ -30,13 +30,13 @@
 
 		$year = substr($date, 0, 4);
 
-		return ($month . " " . $day . ", " . $year);
+		return ($month . "_" . $day . "_" . $year);
 	}
 
 	if(strcasecmp($_SERVER['REQUEST_METHOD'], 'GET') != 0){
 		die('Get request fialed');
 	}
-	$mysqli = new mysqli("localhost", "jamie", "3parj9Ld5Rs18", "test_db"); 
+	$mysqli = new mysqli("localhost", "jamie", "3parj9Ld5Rs18", "bikepanda"); 
 
 	/* check connection */
 	if (mysqli_connect_errno())
@@ -49,13 +49,13 @@
 	$fiveDateValues = array();
 	//$dateVals = array_values($fiveDateValues);
 
-	for ($i=0; $i < 6; $i++) 
+	for ($i=0; $i < 500; $i++) 
 	{ 
-		if ($result = $mysqli->query("SELECT tripID, DATE(time) as time FROM testDate ORDER BY userid DESC LIMIT 6 OFFSET $i"))
+		if ($result = $mysqli->query("SELECT trip_number, DATE(time) as time FROM bikedata ORDER BY rowid DESC LIMIT 500 OFFSET $i"))
 		{
 			$row = $result->fetch_assoc();
 
-			$trip_number = intval($row['tripID']);
+			$trip_number = intval($row['trip_number']);
 			$latestdate = $row['time'];
 
 			$finaldate = parseTimeStamp($latestdate);
@@ -68,19 +68,29 @@
 			} 
 			else
 			{
-				array_push($fiveDateValues[$finaldate], $trip_number);
+				if (!in_array($trip_number, $fiveDateValues[$finaldate]))//trip is not in trip array
+				{
+					array_push($fiveDateValues[$finaldate], $trip_number);
 
-				$keysOfDates = array_keys($fiveDateValues[$finaldate]);
+					$keysOfDates = array_keys($fiveDateValues[$finaldate]);
 
-				$lastArrElem = $keysOfDates[sizeof($keysOfDates)-1];
+					$lastArrElem = $keysOfDates[sizeof($keysOfDates)-1];
 
-				$beforeChange = $keysOfDates[sizeof($keysOfDates)-2];
+					$beforeChange = $keysOfDates[sizeof($keysOfDates)-2];
 
-				$tripPlaceholder = (string) intval(substr($beforeChange, 4)) + 1;
+					$tripPlaceholder = (string) intval(substr($beforeChange, 4)) + 1;
 
-				$consecutiveVal = "trip".$tripPlaceholder;
+					$consecutiveVal = "trip".$tripPlaceholder;
 
-				_rename_arr_key($lastArrElem, $consecutiveVal, $fiveDateValues[$finaldate]);
+					_rename_arr_key($lastArrElem, $consecutiveVal, $fiveDateValues[$finaldate]);
+				} 
+				else
+				{
+
+				}			
+
+				
+
 			}
 			$result->close();
 		}

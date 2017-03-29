@@ -58,7 +58,7 @@ while($stmt2->fetch()) {
 }
 
 // add the date of the trip and send results
-array_push($arr, ["start_time" => $trip_start]);
+//array_push($arr, ["start_time" => $trip_start]);
 echo json_encode($arr);
 $stmt2->close();
 $conn->close();

@@ -15,6 +15,7 @@ $trip_start = 0;
 $time = 0;
 $trip_distance = 0;
 $current_trip = 0;
+$altitude = 0;
 $speed = 0;
 $calories = 0;
 
@@ -45,18 +46,19 @@ if ($result = $mysqli->query("SELECT SUM(calories) as calories FROM bikedata WHE
     echo "Error3: " . $sql . "<br>" . $mysqli->error;
 }
 
-if ($result = $mysqli->query("SELECT speed, time, trip_distance FROM bikedata WHERE trip_number = '".$current_trip."'")) {
+if ($result = $mysqli->query("SELECT altitude, speed, time, trip_distance FROM bikedata WHERE trip_number = '".$current_trip."'")) {
 	while($row = $result->fetch_assoc()) {
 		$time = strtotime($row["time"]) - strtotime($trip_start);
 		$speed = $row["speed"];
 		$trip_distance = $row["trip_distance"];	
+		$altitude = $row["altitude"];
         }
         $result->free();
 } else {
     echo "Error4: " . $sql . "<br>" . $mysqli->error;
 }
 
-$arr = array('speed' => intval($speed), 'time' => $time, 'distance' => $trip_distance, 'calories' => $calories);
+$arr = array('speed' => intval($speed), 'time' => $time, 'distance' => $trip_distance, 'calories' => $calories, 'altitude' => $altitude);
 echo json_encode($arr);
 $mysqli->close();
 ?>
