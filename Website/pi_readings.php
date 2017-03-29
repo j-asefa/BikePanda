@@ -20,18 +20,19 @@ if(!is_array($json_string)){
 
 $user_id = 1;
 $Bike_Speed = $json_string["Bike_Speed"];
-$trip_distance = $json_string["Trip_Distance"];
-$total_distance = $json_string["Total_Distance"];
+$trip_distance = $json_string["Trip_Distance"] / 1000;
+$total_distance = $json_string["Total_Distance"] / 1000;
 $trip_id = $json_string["Trip_ID"];
 $longitude = $json_string["Longitude"];
 $latitude = $json_string["Latitude"];
 date_default_timezone_set('America/Vancouver');
 $time = date("Y-m-d H:i:s");
 $altitude = $json_string["Altitude"];
+$calories = intval($Bike_speed * 3.6 * (3.509 + 0.2581*($Bike_speed * 3.6)*($Bike_speed * 3.6)));
 //echo "bike speed = ".$Bike_Speed . " trip distance = ". $distance . " total distance = ".$altitude . " time = ".$time . " trip id = ".$trip_id;
 
-if($stmt = $conn->prepare("INSERT INTO bikedata (userid, trip_number, speed, altitude, trip_distance, total_distance, latitude, longitude, time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
-	$stmt->bind_param("iidddddds", $user_id, $trip_id, $Bike_Speed, $altitude, $trip_distance, $total_distance, $latitude, $longitude, $time);
+if($stmt = $conn->prepare("INSERT INTO bikedata (userid, trip_number, speed, altitude, calories, trip_distance, total_distance, latitude, longitude, time) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+	$stmt->bind_param("iiddddddds", $user_id, $trip_id, $Bike_Speed, $altitude, $calories, $trip_distance, $total_distance, $latitude, $longitude, $time);
 } else {
 	die("Prepared statement failed failed: " . $conn->error_list);
 }

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -44,13 +45,9 @@
 			width: auto;
 			height: 100%;
 		}
-		.coverlogo {
-			max-width: 220px;
-			max-height: 220px;
-		}
 		.bgimage{
 			background-image: url('./images/treetops.jpg');
-			background-size:100%;
+			background-size: 100%;
 			background-repeat: no-repeat;
 			height: auto;
 		}
@@ -72,6 +69,75 @@
 			margin-right: auto;
 			max-height: 50vh;
 		}
+		hr {
+			display: block;
+			height: 1px;
+			border: 0;
+			border-top: 5px solid silver;
+			margin: 1em 0;
+			padding: 0; 
+		}
+		.hr-1 {
+			padding: 0;
+			border: none;
+			border-top: 5px solid silver;
+			color: #383a4f;
+			text-align: center;    
+			font-size:32px;
+			font-weight: 300;
+		}
+		.hr-1:after {
+			content: attr(data-content);
+			display: inline-block;
+			position: relative; 
+			top: -0.8em; 
+			padding: 0 1em;
+			background: #F0F0F0;
+		}
+		.vcenter {
+			display: inline-block;
+			vertical-align: middle;
+			float: none;
+		}
+		.hr-2 {
+			padding: 0;
+			border: none;
+			border-top: 5px solid silver;
+			color: #383a4f;
+			text-align: center;    
+			font-size:32px;
+			font-weight: 300;
+		}
+		.productimage {
+			height: 300px;
+			width: auto;
+		}
+		.textContainer { 
+			height: 300px; 
+			line-height: 295px;
+		}
+		.textContainer h4 {
+			vertical-align: middle;
+			display: inline-block;
+		}
+		.textContainer2 { 
+			height: 300px; 
+		}
+		.textContainer2 h4 {
+			vertical-align: middle;
+			display: inline-block;
+		}
+		.mylist ul li{
+			list-style-type:none;
+		}
+		.mylist ul li:before{
+			font-family: 'Glyphicons Halflings';
+			content: "\e067"; 
+			position: relative;
+		}
+		.img-thumbnail {
+			background: aliceblue;
+		}
 	</style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -84,9 +150,12 @@
 
   <!-- BODY -->
   <body>
-
+	<div class="navbar navbar-inverse">
+		<div class="container">
+		</div>
+	</div>
 	<!-- NAV BAR -->
-	<nav class="navbar navbar-inverse">
+	<nav class='navbar navbar-inverse navbar-fixed-top sticky' role='navigation'>
 	  <div class="container">
 		<div class="navbar-header">
 		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -101,14 +170,14 @@
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		  <ul class="nav navbar-nav">
+		  <ul class="nav navbar-nav navbar-right">
 			<li>
-			<?php if(isset($_SESSION["id"])): ?>
+                        <?php if(isset($_SESSION["id"])): ?>
                         <a href="./logout.php">Log out<span class="sr-only">(current)</span></a>
                         <?php else: ?>
                         <a href="./login.html">Log in<span class="sr-only">(current)</span></a>
                         <?php endif;?>
-			</li>
+                        </li>
 		  </ul>
 		</div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
@@ -122,81 +191,89 @@
 	</div>
 
 	<!-- Info -->
+	<!-- OUR MISSION -->
+	<br>
 	<div class="container lettherebewhite">
-		<h1 align="center">Our Product</h1>
-		<hr>
+		<hr class="hr-1" data-content="Our Mission"/>
+	</div>
+	<div class="container lettherebewhite">
+		<br>
+		<div class="col-md-2"></div>
+		<div class="col-md-8 text-center">
+			<h4>Founded by seven Computer Engineering students from the University of British Columbia, Bike Panda was created to allow cyclists to get more out of their rides.</h4>
+			<blockquote class="blockquote">
+				<h3><i>"Most people know that riding a bike is good for your health but few are able to track their improvement."</i></h3>
+				<h3 align="right">- Mitch Duffield</h3>
+			</blockquote>
+		</div>
+		<div class="col-md-2"></div>
+		<br>
+	</div>
+	<div class="container lettherebewhite">
+		<hr/><br>
+	</div>
+	
+	<!-- OUR PRODUCT -->
+	<br>
+	<div class="container lettherebewhite">
+		<hr class="hr-1" data-content="Our Product"/>
+	</div>
+	<div class="container lettherebewhite">
+		<br>
 		<div class="col-md-1"></div>
-		<div class="col-md-10"><img class="displayed" src="./images/bicycle.jpg" alt="Bicycle"></div>
+		<div class="col-md-5"><img class="img-thumbnail productimage" src="./images/bicycle2.jpg" alt="Bike Panda on a bike"></div>
+		<div class="col-md-5 textContainer text-center"><h4><i>The Bike Panda device is secured to your bicycle and tracks your trip.</br></br>By recording and charting trip data, Bike Panda shows statistics from past and current ride sessions so users can see their progress over time.</i></h4></div>
 		<div class="col-md-1"></div>
 	</div>
 	<div class="container lettherebewhite">
 		<br>
 		<div class="col-md-1"></div>
-		<div class="col-md-10"><p align="center">This is a bike.  Neat right?</p></div>
+		<div class="mylist col-md-5">
+			<br><br>
+			<h4 class="text-center"><i>Available trip data includes:</i></h4>
+			<ul>
+				<li>  Speed versus time</li>
+				<li>  Altitude versus time</li>
+				<li>  Distance travelled</li>
+				<li>  Time spent on bike</li>
+				<li>  Calories burned</li>
+			</ul>
+		</div>
+		<div class="col-md-5"><img class="img-thumbnail productimage" src="./images/graph.jpg" alt="Graphed Data"></div>
 		<div class="col-md-1"></div>
 	</div>
 	<div class="container lettherebewhite">
-		<br>
-		<div class="col-md-1"></div>
-		<div class="col-md-5"><img class="img-thumbnail" src="./images/forest.jpg" alt="Forest"></div>
-		<div class="col-md-5"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p></div>
-		<div class="col-md-1"></div>
-	</div>
-	<div class="container lettherebewhite">
-		<br>
-		<div class="col-md-1"></div>
-		<div class="col-md-5"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p></div>
-		<div class="col-md-5"><img class="img-thumbnail" src="./images/forest.jpg" alt="Forest"></div>
-		<div class="col-md-1"></div>
-	</div>
-	<div class="container lettherebewhite">
-		<br>
-		<div class="col-md-1"></div>
-		<div class="col-md-5"><img class="img-thumbnail" src="./images/forest.jpg" alt="Forest"></div>
-		<div class="col-md-5"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p></div>
-		<div class="col-md-1"></div>
-	</div>
-	<div class="container lettherebewhite">
-		<br>
-		<div class="col-md-1"></div>
-		<div class="col-md-5"><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </p></div>
-		<div class="col-md-5"><img class="img-thumbnail" src="./images/forest.jpg" alt="Forest"></div>
-		<div class="col-md-1"></div>
+		<br><hr/><br>
 	</div>
 
-	<div class="container lettherebewhite"><br><br></div>
-
-	<!-- TEAM INFO -->
+	<!-- OUR TEAM -->
+	<br>
 	<div class="container lettherebewhite">
-		<hr>
-		<h1 align="center">Our Team</h1>
-		<hr><br>
-
+		<hr class="hr-1" data-content="Our Team"/>
+		<br>
 		<!-- Team Row 1 -->
 		<div class="col-md-2"></div>
-		<div class="col-md-2 text-center"><img class="headshot" src="./images/franklin.jpg" alt="Franklin"><h3>Franklin</h3><p>CEO</p></div>
-		<div class="col-md-2 text-center"><img class="headshot" src="./images/franklin.jpg" alt="Franklin"><h3>Franklin</h3><p>CFO</p></div>
-		<div class="col-md-2 text-center"><img class="headshot" src="./images/franklin.jpg" alt="Franklin"><h3>Franklin</h3><p>CTO</p></div>
-		<div class="col-md-2 text-center"><img class="headshot" src="./images/franklin.jpg" alt="Franklin"><h3>Franklin</h3><p>CBO</p></div>
+		<div class="col-md-2 text-center"><img class="headshot img-circle img-thumbnail" src="./images/omar.jpg" alt="Omar Agha"><h3><b>Omar Agha</b></h3><p>Software Engineer<br/>Front End</p></div>
+		<div class="col-md-2 text-center"><img class="headshot img-circle img-thumbnail" src="./images/harshmeet.jpg" alt="Harshmeet Arora"><h3><b>Harshmeet Arora</b></h3><p>Software Engineer<br/>Back End</p></div>
+		<div class="col-md-2 text-center"><img class="headshot img-circle img-thumbnail" src="./images/jamie.jpg" alt="Jamie Asefa"><h3><b>Jamie Asefa</b></h3><p>Server Database Admin</p></div>
+		<div class="col-md-2 text-center"><img class="headshot img-circle img-thumbnail" src="./images/mitch.jpg" alt="Mitch Duffield"><h3><b>Mitch Duffield</b></h3><p>Software Engineer<br/>Front End</p></div>
 		<div class="col-md-2"></div>
 	</div>
 	<div class="container lettherebewhite">
 		<br><br>
 		<!-- Team Row 2 -->
-		<div class="col-md-2"></div>
-		<div class="col-md-2 text-center"><img class="headshot" src="./images/franklin.jpg" alt="Franklin"><h3>Franklin</h3><p>COO</p></div>
-		<div class="col-md-2 text-center"><img class="headshot" src="./images/franklin.jpg" alt="Franklin"><h3>Franklin</h3><p>CO2</p></div>
-		<div class="col-md-2 text-center"><img class="headshot" src="./images/franklin.jpg" alt="Franklin"><h3>Franklin</h3><p>C3P0</p></div>
-		<div class="col-md-2 text-center"><img class="headshot" src="./images/franklin.jpg" alt="Franklin"><h3>Franklin</h3><p>COW</p></div>
-		<div class="col-md-2"></div>
-
+		<div class="col-md-3"></div>
+		<div class="col-md-2 text-center"><img class="headshot img-circle img-thumbnail" src="./images/stefan.jpg" alt="Stefan Jauca"><h3><b>Stefan Jauca</b></h3><p>Embedded Systems Engineer</p></div>
+		<div class="col-md-2 text-center"><img class="headshot img-circle img-thumbnail" src="./images/laurenz.jpg" alt="Laurenz Lebenstraum"><h3><b>Laurenz Lebenstraum</b></h3><p>Software Engineer<br/>Back End</p></div>
+		<div class="col-md-2 text-center"><img class="headshot img-circle img-thumbnail" src="./images/sahil.jpg" alt="Franklin"><h3><b>Sahil Mazmudar</b></h3><p>Embedded Systems Engineer</p></div>
+		<div class="col-md-3"></div>
 	</div>
-
-	<!-- MINI FOOTER -->
 	<div class="container lettherebewhite">
-		<br><hr><br>
+		<br><hr/><br>
 	</div>
 
+	<br>
+	
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

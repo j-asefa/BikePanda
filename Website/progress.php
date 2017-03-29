@@ -9,7 +9,9 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
       
-    <!-- MD BOOTSTRAP -->  
+    <!-- JS BOOTSTRAP -->  
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
 	
     <style>
         body {
@@ -32,7 +34,8 @@
 			border-radius:0;
 		}
     </style>
-    
+
+    <!-- <script src="js/bootstrap.min.js"></script> -->
     <script src="./js/chart.js/dist/Chart.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   </head>
@@ -91,10 +94,69 @@
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-info"><b>Past Trips</b></li>
 
-                        <a href="#" class="list-group-item" id="date1"></a>
+                        <!-- <a href="#" class="list-group-item" id="date11"></a>
                         <a href="#" class="list-group-item" id="date2"></a>
                         <a href="#" class="list-group-item" id="date3"></a>
-                        <a href="#" class="list-group-item" id="date4"></a>
+                        <a href="#" class="list-group-item" id="date4"></a> -->
+
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                          <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                              <h4 class="panel-title">
+                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" id="date1">
+                                  <!-- Collapsible Group Item #1 -->
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                              <div class="panel-body">
+                                test1
+                              </div>
+                            </div>
+                          </div>
+                          <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingTwo">
+                              <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="date2">
+                                  Collapsible Group Item #2
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                              <div class="panel-body">
+                                test2
+                              </div>
+                            </div>
+                          </div>
+                          <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingThree">
+                              <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" id="date3">
+                                  Collapsible Group Item #3
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                              <div class="panel-body">
+                                test3
+                              </div>
+                            </div>
+                          </div>
+                          <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingFour">
+                              <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour" id="date4">
+                                  Collapsible Group Item #4
+                                </a>
+                              </h4>
+                            </div>
+                            <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                              <div class="panel-body">
+                                test4
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
                         <script type="text/javascript">
                             var omarTime = "";
@@ -106,10 +168,13 @@
                                 type: 'GET',
                                 //async
                                 success: function(data){
-                                    $('#date1').text(data[0].time0);
-                                    $('#date2').text(data[1].time1);
-                                    $('#date3').text(data[2].time2);
-                                    $('#date4').text(data[3].time3);
+                                    var dateStrings = [];
+                                    dateStrings = Object.keys(data);
+
+                                    $('#date1').text(dateStrings[0]);
+                                    $('#date2').text(dateStrings[1]);
+                                    $('#date3').text(dateStrings[2]);
+                                    $('#date4').text(dateStrings[3]);
                                 },
                                 error: function(){}
                                 });
@@ -131,6 +196,7 @@ var time;
 var lastPlottedTime;
 var speed;
 var distance;
+var calories;
 var minTime;
 var minTime;
 var ctx = document.getElementById("SpeedTimeChart");
@@ -212,7 +278,8 @@ setInterval(function(){
         success: function(data){
             $('.speed').text(speed=data.speed);
             $('.distance').text(speed=data.distance);
-            time = data.time;
+            $('.calories').text(calories=data.calories);   
+		time = data.time;
           
             
         },
@@ -274,10 +341,9 @@ setInterval(function(){
                             <h3 class="panel-title">Calories</h3>
                         </div>
                         <div class="panel-body">
-                        Val 3
+                     		<span class="calories"></span>
                         </div>
                     </div>
-                    
                 </div>
         </div>
     </div>
