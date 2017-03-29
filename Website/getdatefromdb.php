@@ -1,7 +1,7 @@
 <?php
 
 	/*
-	 * Function that parses a time stamp into the format (January 1, 2020)
+	 * Function that parses a time stamp into the format (January 1, 2000)
 	 */
 	function parseTimeStamp ($date){
 		# array to store month names
@@ -36,25 +36,34 @@
 
 	for ($i=0; $i < 4; $i++) 
 	{ 
-		if ($result = $mysqli->query("SELECT DATE(time) as time FROM testDate ORDER BY userid DESC LIMIT 4 OFFSET $i")) // DESC LIMIT 1
+		if ($result = $mysqli->query("SELECT tripID, DATE(time) as time FROM testDate ORDER BY userid DESC LIMIT 4 OFFSET $i")) // DESC LIMIT 1
 		{
-			
 			$row = $result->fetch_assoc();
 
+			$trip_number = $row['tripID'];
 			$latestdate = $row['time'];
 
 			$finaldate = parseTimeStamp($latestdate);
 
-			$datearr = array('time'.$i => $finaldate);
+			if (!in_array($finaldate, $datearr))
+			{
+				$trips = array();
+				$tripsVals = array_values($trips);
 
-			//$encodedarr = js($datearr);
+				array_push($trips, $trip_number);
 
-			//echo $encodedarr;
+				$dayToTrip = array($finaldate => $tripsVals);
 
-			$dateVals[$i] = $datearr; 
+				$datearr = array('time'.$i => $dayToTrip);
 
-			$result->close();
+				$dateVals[$i] = $datearr; 
 
+				$result->close();
+			} 
+			else
+			{
+
+			}
 		}
 		else 
 		{
@@ -65,7 +74,5 @@
 	//$finalDatesArr = array('arr' => $dateVals);
 	echo json_encode($dateVals);
 
-	
-	
 	$mysqli->close();
 ?>

@@ -41,6 +41,7 @@
 
                   minLong = maxLong = data[0].longitude;
                   minLat = maxLat = data[0].latitude;
+		  pathCoordninates.push( new google.maps.LatLng( minLong, minLat));
                   for ( i = 1; i < data.length; i++){
                     latitude = data[i].latitude;
                     longitude = data[i].longitude;
@@ -64,6 +65,9 @@
           });
 latitude = (maxLat - minLat) / 2;
 longitude = (maxLong - minLong) / 2;
+
+
+
 function initMap() {
 setTimeout(function() {
  latLng = new google.maps.LatLng( latitude, longitude);
@@ -84,29 +88,7 @@ setTimeout(function() {
   flightPath.setMap(map);
 }, 1000);
 }
-/*    function initMap() {
-
-		latitude = (maxLat - minLat) / 2;
-		longitude = (maxLong - minLong) / 2;
-
-		var map = new google.maps.Map(document.getElementById('map'), {
-		  zoom: 3,
-		  center: new google.maps.LatLng( latitude, longitude),
-		  mapTypeId: 'terrain'
-		});
-
-		var flightPath = new google.maps.Polyline({
-		  path: pathCoordninates,
-		  geodesic: true,
-		  strokeColor: '#FF0000',
-		  strokeOpacity: 1.0,
-		  strokeWeight: 2
-		});
-
-		flightPath.setMap(map);
-
-    }*/
     </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeasNGrKh3vL9EkHJlVEP3VhSQpk4frNU&callback=initMap">setTimeout(initMap(), 10000); </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeasNGrKh3vL9EkHJlVEP3VhSQpk4frNU&callback=initMap"> </script>
   </body>
 </html>

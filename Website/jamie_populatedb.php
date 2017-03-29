@@ -20,9 +20,9 @@ while ($i < 100) {
 	$incline = rand(1, 100);
 	$altitude = rand(0, 3000);
 	$speed = rand(0, 150);
-	$latitude = $origin_x + rand(-100, 100);
-	$longitude = $origin_y + rand(-100, 100);
-	$trip_number = 1000;
+	$latitude = $origin_x + $i/500.0;
+	$longitude = $origin_y + $i/500.0;
+	$trip_number = 1003;
 	$calories = rand(0, 900);
 
 	if($stmt = $conn->prepare("INSERT INTO bikedata (trip_number, longitude, latitude, speed, altitude, incline, distance, time, calories) VALUES (?, ?, ?, ?, ?, ?, ?, FROM_UNIXTIME(UNIX_TIMESTAMP('2010-01-01 14:53:27') + FLOOR(0 + ABS((RAND() * 33052000)))), ?)")) {
