@@ -3,7 +3,7 @@
 if(strcasecmp($_SERVER['REQUEST_METHOD'], 'GET') != 0){
         die('Get request failed');
 }
-$mysqli = new mysqli("localhost", "jamie", "3parj9Ld5Rs18", "test_db");
+$mysqli = new mysqli("localhost", "jamie", "3parj9Ld5Rs18", "bikepanda");
 
 /* check connection */
 if (mysqli_connect_errno()) {

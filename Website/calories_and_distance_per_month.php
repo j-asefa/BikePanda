@@ -2,9 +2,9 @@
 if(strcasecmp($_SERVER['REQUEST_METHOD'], 'GET') != 0){
 	die('Get request failed');
 }
-$mysqli = new mysqli("localhost", "jamie", "3parj9Ld5Rs18", "test_db");
+$mysqli = new mysqli("localhost", "jamie", "3parj9Ld5Rs18", "bikepanda");
 
-$distance = $incline = $altitude = $speed = $latitude = $longitude = $trip_number = "";
+$trip_distance = $incline = $altitude = $speed = $latitude = $longitude = $trip_number = "";
 
 /* check connection */
 if (mysqli_connect_errno()) {
@@ -12,7 +12,7 @@ if (mysqli_connect_errno()) {
     exit();
 }
 
-if ($result = $mysqli->query("SELECT calories, distance, time FROM bikedata")) {
+if ($result = $mysqli->query("SELECT calories, trip_distance, time FROM bikedata")) {
 	//printf("Select returned %d rows.\n", $result->num_rows);
 	$janarr = $febarr = $mararr = $aprarr = $mayarr = $junearr = $julyarr = $augarr = $septarr = $octarr = $novarr = $decarr = "";
 
@@ -23,55 +23,55 @@ if ($result = $mysqli->query("SELECT calories, distance, time FROM bikedata")) {
 	$jantime = $febtime = $martime = $aprtime = $maytime = $junetime = $julytime = $augtime = $septtime = $octtime = $novtime = $dectime = 0;
 	while($row = $result->fetch_assoc()) {
 		if(strpos($row["time"], '2010-01') !== false) {
-			$jandist += $row["distance"];
+			$jandist += $row["trip_distance"];
 			$jancals += $row["calories"];
 		} else if(strpos($row["time"], '2010-02') !== false) {
-			$febdist += $row["distance"];
+			$febdist += $row["trip_distance"];
                         $febcals += $row["calories"];
 		} else if(strpos($row["time"], '2010-03') !== false) {
-			$mardist += $row["distance"];
+			$mardist += $row["trip_distance"];
                         $marcals += $row["calories"];
 		} else if(strpos($row["time"], '2010-04') !== false) {
-			$aprdist += $row["distance"];
+			$aprdist += $row["trip_distance"];
                         $aprcals += $row["calories"];
 		} else if(strpos($row["time"], '2010-05') !== false) {
-			$maydist += $row["distance"];
+			$maydist += $row["trip_distance"];
                         $maycals += $row["calories"];
 		} else if(strpos($row["time"], '2010-06') !== false) {
-			$junedist += $row["distance"];
+			$junedist += $row["trip_distance"];
                         $junecals += $row["calories"];
 		} else if(strpos($row["time"], '2010-07') !== false) {
-			$julydist += $row["distance"];
+			$julydist += $row["trip_distance"];
                         $julycals += $row["calories"];
 		} else if(strpos($row["time"], '2010-08') !== false) {
-			$augdist += $row["distance"];
+			$augdist += $row["trip_distance"];
                         $augcals += $row["calories"];
 		} else if(strpos($row["time"], '2010-09') !== false) {
-			$septdist += $row["distance"];
+			$septdist += $row["trip_distance"];
                         $septcals += $row["calories"];
 		} else if(strpos($row["time"], '2010-10') !== false) {
-			$octdist += $row["distance"];
+			$octdist += $row["trip_distance"];
                         $octcals += $row["calories"];
 		} else if(strpos($row["time"], '2010-11') !== false) {
-			$novdist += $row["distance"];
+			$novdist += $row["trip_distance"];
                         $novcals += $row["calories"];
 		} else if(strpos($row["time"], '2010-12') !== false) {
-			$decdist += $row["distance"];
+			$decdist += $row["trip_distance"];
                         $deccals += $row["calories"];
 		} 
 	}
-	$janarr = array('calories' => $jancals, 'distance' => $jandist);
-	$febarr = array('calories' => $febcals, 'distance' => $febdist);
-	$mararr = array('calories' => $marcals, 'distance' => $mardist);
-	$aprarr = array('calories' => $aprcals, 'distance' => $aprdist);
-	$mayarr = array('calories' => $maycals, 'distance' => $maydist);
-	$junearr = array('calories' => $junecals, 'distance' => $junedist);
-	$julyarr = array('calories' => $julycals, 'distance' => $julydist);
-	$augarr = array('calories' => $augcals, 'distance' => $augdist);
-	$septarr = array('calories' => $septcals, 'distance' => $septdist);
-	$octarr = array('calories' => $octcals, 'distance' => $octdist);
-	$novarr = array('calories' => $novcals, 'distance' => $novdist);
-	$decarr = array('calories' => $deccals, 'distance' => $decdist);
+	$janarr = array('calories' => $jancals, 'trip_distance' => $jandist);
+	$febarr = array('calories' => $febcals, 'trip_distance' => $febdist);
+	$mararr = array('calories' => $marcals, 'trip_distance' => $mardist);
+	$aprarr = array('calories' => $aprcals, 'trip_distance' => $aprdist);
+	$mayarr = array('calories' => $maycals, 'trip_distance' => $maydist);
+	$junearr = array('calories' => $junecals, 'trip_distance' => $junedist);
+	$julyarr = array('calories' => $julycals, 'trip_distance' => $julydist);
+	$augarr = array('calories' => $augcals, 'trip_distance' => $augdist);
+	$septarr = array('calories' => $septcals, 'trip_distance' => $septdist);
+	$octarr = array('calories' => $octcals, 'trip_distance' => $octdist);
+	$novarr = array('calories' => $novcals, 'trip_distance' => $novdist);
+	$decarr = array('calories' => $deccals, 'trip_distance' => $decdist);
 	$json_array = array('jan' => $janarr, 'feb' => $febarr, 'mar' => $mararr, 'apr' => $aprarr, 'may' => $mayarr, 'jun' => $junearr, 'jul' => $julyarr, 'aug' => $augarr, 'sep' => $septarr, 'oct' =>$octarr, 'nov' => $novarr, 'dec' => $decarr);
 	$json_array = json_encode($json_array);
 	echo $json_array;

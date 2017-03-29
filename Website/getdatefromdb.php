@@ -31,48 +31,42 @@
 	}
 
 	# array to hold 4 date values
-	$fourDateValues = array();
-	$dateVals = array_values($fourDateValues);
+	$fiveDateValues = array();
+	//$dateVals = array_values($fiveDateValues);
 
-	for ($i=0; $i < 4; $i++) 
+	for ($i=0; $i < 5; $i++) 
 	{ 
-		if ($result = $mysqli->query("SELECT tripID, DATE(time) as time FROM testDate ORDER BY userid DESC LIMIT 4 OFFSET $i")) // DESC LIMIT 1
+		if ($result = $mysqli->query("SELECT tripID, DATE(time) as time FROM testDate ORDER BY userid DESC LIMIT 5 OFFSET $i"))
 		{
 			$row = $result->fetch_assoc();
 
-			$trip_number = $row['tripID'];
+			$trip_number = intval($row['tripID']);
 			$latestdate = $row['time'];
 
 			$finaldate = parseTimeStamp($latestdate);
 
-			if (!in_array($finaldate, $datearr))
+			if (!in_array($finaldate, array_keys($fiveDateValues)))
 			{
-				$trips = array();
-				$tripsVals = array_values($trips);
+				$trips = array('trip1' => $trip_number);
 
-				array_push($trips, $trip_number);
-
-				$dayToTrip = array($finaldate => $tripsVals);
-
-				$datearr = array('time'.$i => $dayToTrip);
-
-				$dateVals[$i] = $datearr; 
-
-				$result->close();
+				$fiveDateValues[$finaldate] = $trips; 
 			} 
 			else
 			{
-
+				//add to the same trips array
+				array_push($fiveDateValues[$finaldate], $trip_number);
 			}
+			$result->close();
 		}
 		else 
 		{
 	    	echo "Error: " . $sql . "<br>" . $conn->error;
 		}
-	}	
+	}
+	//echo $dateVals;	
 
 	//$finalDatesArr = array('arr' => $dateVals);
-	echo json_encode($dateVals);
+	echo json_encode($fiveDateValues);
 
 	$mysqli->close();
 ?>
