@@ -18,16 +18,18 @@ $i = 0;
 while ($i < 50) {
 	$total_distance = $i*2;
 	$trip_distance = $i;
-	$altitude = $i/2;
-	$speed = $i;
-	$latitude = $origin_x + pow($i/100,2);
-	$longitude = $origin_y - pow($i/100,3);
-	$trip_number = 34;
-	$calories = rand(0, 900);
+	$altitude =  100 + rand(-3,2);
+	$speed = 17 + rand(-2,2);
+	$latitude = $origin_x + pow($i/1000,2);
+	$longitude = $origin_y - pow($i/900,2);
+	$trip_number = 4;
+	$calories = rand(1, 3);
 	$userid = 1;
+	$string_of_i = (string) $i;
+	$time = '2017-03-25 07:53:'.$string_of_i;
 
-	if($stmt = $conn->prepare("INSERT INTO bikedata (userid, trip_distance, trip_number, longitude, latitude, speed, altitude, total_distance, time, calories) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, FROM_UNIXTIME(UNIX_TIMESTAMP('2017-03-31 16:53:29') + FLOOR(0 + ABS((RAND() * 330)))), ?)")) {
-		$stmt->bind_param("iiddddddd", $userid, $trip_distance, $trip_number, $longitude, $latitude, $speed, $altitude, $total_distance, $calories);
+	if($stmt = $conn->prepare("INSERT INTO bikedata (userid, trip_distance, trip_number, longitude, latitude, speed, altitude, total_distance, time, calories) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)")) {
+		$stmt->bind_param("iiddddddsd", $userid, $trip_distance, $trip_number, $longitude, $latitude, $speed, $altitude, $total_distance, $time, $calories);
 	} else {
 		die("Prepared statement failed failed: " . $conn->error_list);
 	}

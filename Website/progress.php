@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -15,12 +16,12 @@
    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeasNGrKh3vL9EkHJlVEP3VhSQpk4frNU"> </script>  
     <style>
         body {
-            background-color: AliceBlue;
+            background-color: Ivory;
         }
         .navbar {
             margin-bottom:0;
             border-radius:0;
-        } 
+        }   
         .panel {
             border-radius:0;
         }
@@ -80,7 +81,7 @@
                     <h2>Live Feed</h2>
                 </div>
                 <div class="panel-body">
-                    <a href="#" class="btn btn-info" role="button" id="realOG" onclick="realTime()">Real-time Graph</a>
+                    <a href="#" class="btn btn-primary" role="button" id="realOG" onclick="realTime()">Real-time Graph</a>
                     <hr>
                     <ul class="list-group">
                         <li class="list-group-item list-group-item-info"><b>Past Trips</b></li>
@@ -228,6 +229,13 @@
             
             <!-- PLACE GRAPH HERE -->
             <div class="col-md-8 col-sm-8" style="margin-top:20px" > 
+                
+            <!-- DISMISSABLE ALERTS -->
+            <div class="alert alert-warning alert-dismissable" role="alert">
+                <h3>Please choose a trip ID, then choose a graph type.
+                <button type="button" class="close" data-dismiss="alert">
+                    <span>Close &times;</span></button></h3>
+            </div>    
 
             <canvas id="SpeedTimeChart" width="400" height="200"></canvas>
             <script>
@@ -242,12 +250,15 @@
                     var responseData =[];
                     $.ajax(
                                 {
-                                    url:'./speedvstime.php',
+                                    url:'./staticdata.php',
                                     dataType:'json',
                                     async: 'false',
                                     type: 'get',
                                     data: {tripid: tripID},
                                     success: function(data){
+					$('.speed').text(data[0].average_speed);
+                                        $('.calories').text(data[0].calories);
+                                        $('.distance').text(data[0].sum_trip_distance);
                                         var i;
                                         for ( i = 0; i < data.length - 1; i++){
                                                 responseData.push( {x: data[i].time, y: data[i].speed} )
@@ -329,12 +340,15 @@
                     var freshData = [];
                     $.ajax(
                                 {
-                                    url:'./altitudevsdistance.php',
+                                    url:'./staticdata.php',
                                     dataType:'json',
                                     async: 'false',
                                     type: 'get',
                                     data: { tripid: tripID},
                                     success: function(data){
+					$('.speed').text(data[0].average_speed);
+					$('.calories').text(data[0].calories);
+					$('.distance').text(data[0].sum_trip_distance);
                                         var i;
                                         for ( i = 0; i < data.length - 1; i++){
                                             freshData.push( {x: data[i].distance, y: data[i].altitude} )
@@ -628,9 +642,9 @@
 
             <hr>   
                 <div class="btn-group" role="group" aria-label="...">
-                  <button type="button" id="speedtimebutton" class="btn btn-lg btn-info" onclick="getSpeedGraphUp()"> Speed Vs. Time</button>
-                  <button type="button" id="altdistancebutton" class="btn btn-lg btn-info" onclick="getAltitudeGraphUp()">Altitude Vs. Distance</button> 
-                  <a href="" role="button" target="_blank" id="mapbutton" class="btn btn-lg btn-info">Bike Path</a>
+                  <button type="button" id="speedtimebutton" class="btn btn-lg btn-primary" onclick="getSpeedGraphUp()"> Speed Vs. Time</button>
+                  <button type="button" id="altdistancebutton" class="btn btn-lg btn-primary" onclick="getAltitudeGraphUp()">Altitude Vs. Distance</button> 
+                  <a href="" role="button" target="_blank" id="mapbutton" class="btn btn-lg btn-primary">Bike Path</a>
                 </div>     
             </div>
             <!-- LIVE DATA UPDATE -->
@@ -639,7 +653,7 @@
             <hr>
                
                     <!-- PANELS -->  
-                    <div class="panel panel-info">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h2 class="panel-title"><h3>Speed (km/h)</h3></h2>
                         </div>
@@ -648,7 +662,7 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="panel panel-info">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h2 class="panel-title"><h3>Distance (m)</h3></h2>
                         </div>
@@ -657,9 +671,9 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="panel panel-info">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h2 class="panel-title"><h3>Calories/second (W)</h3></h2>
+                            <h2 class="panel-title"><h3>Calories (W)</h3></h2>
                         </div>
                         <div class="panel-body">
                             
@@ -675,3 +689,5 @@
     
     
 </body>    
+    
+</html>    
