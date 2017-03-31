@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Live Map</title>
+    <title>Trip <?php echo $_GET['tripId'] ?></title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
@@ -19,6 +19,7 @@
   <body>
     <div id="map"></div>
     <script>
+      var tripId = '<?php echo $_GET['tripId'] ?>';
       var map;
       var pathCoordninates = [];
       var centerLatitude = 49.2606;
@@ -41,36 +42,47 @@
 
         flightPath.setMap(map);
     }
-      
-          
 
 function initMap() {
-     map = new google.maps.Map(document.getElementById('map'), {
+map = new google.maps.Map(document.getElementById('map'), {
             zoom: 13,
             center: centerLatLng,
             mapTypeId: 'terrain'
         });
+/*var flightPath = new google.maps.Polyline({
+    path: pathCoordninates,
+    geodesic: true,
+    strokeColor: '#FF0000',
+    strokeOpacity: 1.0,
+    strokeWeight: 2
+  });
 
-    setInterval(function() {
-        $.ajax({
-            url:'./livemapsdata.php',
-            dataType:'json',
-            async: 'false',
-            type: 'get',
-            success: function(data){
-		if (data.latitude != 0.0 && data.longitude != 0.0){
-			var latitude = data.latitude;
-			var longitude = data.longitude;
-			var latLng = new google.maps.LatLng(latitude, longitude);
-			pathCoordninates.push(latLng);
-		        reconfigure(pathCoordninates);
-		}
-            },
-            error: function(){}
-        });
-    }, 1000);
+  flightPath.setMap(map);*/
+//}, 1000);
+	
+		$.ajax({
+		      url:'./staticmapsdata.php',
+		      dataType:'json',
+		      async: 'false',
+		      type: 'get',
+		      data: { tripid: tripId},
+
+		      success: function(data){
+			  var i;
+			  //minLong = maxLong = data[0].longitude;
+			  //minLat = maxLat = data[0].latitude;
+			  for ( i = 0; i < data.length; i++){
+			      var latitude = data[i].latitude;
+			      var longitude = data[i].longitude;
+
+			     pathCoordninates.push( new google.maps.LatLng( latitude, longitude));
+			    }
+			reconfigure(pathCoordninates);
+		      },
+		      error: function(){}
+		});
 }
-    </script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeasNGrKh3vL9EkHJlVEP3VhSQpk4frNU&callback=initMap"> </script>
+   </script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeasNGrKh3vL9EkHJlVEP3VhSQpk4frNU&callback=initMap"> </script>
   </body>
 </html>

@@ -144,7 +144,8 @@
 	<!-- JUMBOTRON -->
 	<div class="jumbotron text-center vertical-center bgimage">
 	  <div class="container">
-		<h1  id="myfont">Bike Panda</h1>
+		<h1>Bike Panda</h1>
+		<h3>Count Your Strides</h3>
 		<br>
 		<img class="img-circle coverlogo" src="./images/BikePandaLogo.png" alt="Bike Panda Logo">
 		<br><br><br>

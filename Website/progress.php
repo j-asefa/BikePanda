@@ -12,27 +12,27 @@
     <!-- JS BOOTSTRAP -->  
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://getbootstrap.com/dist/js/bootstrap.min.js"></script>
-   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeasNGrKh3vL9EkHJlVEP3VhSQpk4frNU&callback=initChart"> </script>	
+   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeasNGrKh3vL9EkHJlVEP3VhSQpk4frNU"> </script>  
     <style>
         body {
-			background-color: AliceBlue;
+            background-color: AliceBlue;
         }
-		.navbar {
-			margin-bottom:0;
-			border-radius:0;
+        .navbar {
+            margin-bottom:0;
+            border-radius:0;
         } 
         .panel {
-			border-radius:0;
-		}
+            border-radius:0;
+        }
         .panel-heading {
-			border-radius:0;
-		}
+            border-radius:0;
+        }
         .panel-body {
-			border-radius:0;
-		}
+            border-radius:0;
+        }
         .list-group {
-			border-radius:0;
-		}
+            border-radius:0;
+        }
     </style>
 
     <!-- <script src="js/bootstrap.min.js"></script> -->
@@ -42,33 +42,33 @@
     
   <body>
     <!-- NAV BAR -->
-	<nav class="navbar navbar-inverse">
-	  <div class="container">
-		<!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-			<span class="sr-only">Toggle navigation</span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-			<span class="icon-bar"></span>
-		  </button>
-		  <a class="navbar-brand" href="./index.php">Bike Panda</a>
-		</div>
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.php">Bike Panda</a>
+        </div>
 
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		  <ul class="nav navbar-nav">
-			<li><a href="./index.php">Home<span class="sr-only">(current)</span></a></li>
-		  </ul>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="./index.php">Home<span class="sr-only">(current)</span></a></li>
+          </ul>
           <ul class="nav navbar-nav navbar-right">  
                     <li><a href="./logout.php">Log out<span class="sr-only">(current)</span></a></li>
-		  </ul> 
-		  <ul class="nav navbar-nav navbar-right">
-			<li><a href="./about.php">About Us</a></li>
-		  </ul>
-		</div><!-- /.navbar-collapse -->
+          </ul> 
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="./about.php">About Us</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
      </div><!-- /.container-fluid -->
-	</nav>
+    </nav>
 
     <!-- GRID CONTAINING THE GRAPH AND RELEVANT INFORMATION -->
     <div class="container-fluid text-center" >
@@ -153,16 +153,26 @@
                         </div>
                         <script type="text/javascript">
                         var tripID;
+			var real_time = 0;	
                             function reply_click(clicked_id)
                             {
+				real_time = 0;
                                 tripID = clicked_id;
+				var outgoinglink = './GoogleAPIFirstTest.php?tripId='+tripID;
+				$('#mapbutton').attr('href',outgoinglink);
+                            }
+			    function reply_click_realtime(clicked_id)
+                            {
+				if (real_time) {
+					var outgoinglink = './GoogleAPID2.html';
+					$('#mapbutton').attr('href',outgoinglink);
+				}
                             }
                         </script>
 
                         <script type="text/javascript">
                             var omarTime = "";
                             var currentID = 0;
-                            
                             //var arrrr = [];
                             //var poll = function(){
                             $.ajax(
@@ -192,7 +202,7 @@
                                             var trip = "trip" + (j+1).toString();
 
                                             currentID = (data[dateStrings[i]])[trip].toString();
-                                            var button_text = '<button type="button" class="btn btn-lg btn-default" id='+currentID+' onClick="reply_click(this.id)">'+currentID+'</button>';
+                                            var button_text = '<button type="button" class="btn btn-lg btn-default" id='+currentID+' onClick="reply_click('+currentID+')">'+currentID+'</button>';
 
                                             var bt = $(button_text);
                                             $("#DATE"+i).append(bt);
@@ -574,6 +584,7 @@
                     };
             }
             function realTime(){
+		real_time = 1;
             setInterval(function(){
 
                 $.ajax(
@@ -585,17 +596,17 @@
                     // data: 
                     success: function(data){
                         $('.speed').text(speed=data.speed);
-                        $('.calories').text(speed*(3.5+(0.2581*speed*speed)));
+                        $('.calories').text((speed*(3.5+(0.2581*speed*speed))/4186).toFixed(2));
                         $('.distance').text(distance=data.distance);
+			reply_click_realtime(data.tripId);
                         time = data.time;
-                      
                         
                     },
                     error: function(){}
                 });
 
                 if ( time != lastPlottedTime){
-                
+                	
                     Data.push({
                         x: time,
                         y: speed
@@ -614,21 +625,14 @@
             </script>
 
 
-            
-            <script>
-            var calories= speed*(3.5+(0.2581*speed*speed));
-            </script>
-            
-            
 
             <hr>   
                 <div class="btn-group" role="group" aria-label="...">
                   <button type="button" id="speedtimebutton" class="btn btn-lg btn-info" onclick="getSpeedGraphUp()"> Speed Vs. Time</button>
                   <button type="button" id="altdistancebutton" class="btn btn-lg btn-info" onclick="getAltitudeGraphUp()">Altitude Vs. Distance</button> 
-                  <button type="button" id="mapbutton" class="btn btn-lg btn-info" onclick="getMapAPIgoing()">Bike Path</button>
+                  <a href="" role="button" target="_blank" id="mapbutton" class="btn btn-lg btn-info">Bike Path</a>
                 </div>     
             </div>
-            
             <!-- LIVE DATA UPDATE -->
             <div class="col-md-2 col-sm-2">
             <h2>Data Gauges</h2>

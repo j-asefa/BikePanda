@@ -14,7 +14,6 @@
 	  }
 	}
 
-
 	/*
 	 * Function that parses a time stamp into the format (January 1, 2000)
 	 */

@@ -18,12 +18,22 @@ $current_trip = 0;
 $altitude = 0;
 $speed = 0;
 $calories = 0;
+$most_recent_row = 0;
 
-if ($result = $mysqli->query("SELECT MAX(trip_number) as trip_number FROM bikedata")) {
+if ($result = $mysqli->query("SELECT MAX(rowid) as rowid FROM bikedata")) {
 	while($row = $result->fetch_assoc()) {
-		$current_trip= $row["trip_number"];
+		$most_recent_row = $row["rowid"];
 	}
 	$result->free();
+} else {
+    echo "Error1: " . $sql . "<br>" . $mysqli->error;
+}
+
+if ($result = $mysqli->query("SELECT trip_number FROM bikedata WHERE rowid = '".$most_recent_row."'")) {
+        while($row = $result->fetch_assoc()) {
+                $current_trip = $row["trip_number"];
+        }
+        $result->free();
 } else {
     echo "Error1: " . $sql . "<br>" . $mysqli->error;
 }
@@ -37,16 +47,16 @@ if ($result = $mysqli->query("SELECT MIN(time) as time FROM bikedata WHERE trip_
     echo "Error2: " . $sql . "<br>" . $mysqli->error;
 }
 
-if ($result = $mysqli->query("SELECT SUM(calories) as calories FROM bikedata WHERE trip_number = '".$current_trip."'")) {
+/*if ($result = $mysqli->query("SELECT SUM(calories) as calories FROM bikedata WHERE trip_number = '".$current_trip."'")) {
         while($row = $result->fetch_assoc()) {
                 $calories = $row["calories"];
         }
         $result->free();
 } else {
     echo "Error3: " . $sql . "<br>" . $mysqli->error;
-}
+}*/
 
-if ($result = $mysqli->query("SELECT altitude, speed, time, trip_distance FROM bikedata WHERE trip_number = '".$current_trip."'")) {
+if ($result = $mysqli->query("SELECT altitude, speed, time, trip_distance FROM bikedata WHERE rowid = '".$most_recent_row."'")) {
 	while($row = $result->fetch_assoc()) {
 		$time = strtotime($row["time"]) - strtotime($trip_start);
 		$speed = $row["speed"];
@@ -58,7 +68,7 @@ if ($result = $mysqli->query("SELECT altitude, speed, time, trip_distance FROM b
     echo "Error4: " . $sql . "<br>" . $mysqli->error;
 }
 
-$arr = array('speed' => intval($speed), 'time' => $time, 'distance' => $trip_distance, 'calories' => $calories, 'altitude' => $altitude);
+$arr = array('speed' => intval($speed), 'time' => $time, 'distance' => $trip_distance, 'calories' => $calories, 'altitude' => $altitude, 'tripId' => $current_trip);
 echo json_encode($arr);
 $mysqli->close();
 ?>

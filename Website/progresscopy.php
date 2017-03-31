@@ -625,7 +625,7 @@
                 <div class="btn-group" role="group" aria-label="...">
                   <button type="button" id="speedtimebutton" class="btn btn-lg btn-info" onclick="getSpeedGraphUp()"> Speed Vs. Time</button>
                   <button type="button" id="altdistancebutton" class="btn btn-lg btn-info" onclick="getAltitudeGraphUp()">Altitude Vs. Distance</button> 
-                  <button type="button" id="mapbutton" class="btn btn-lg btn-info" onclick="getMapAPIgoing()">Bike Path</button>
+                  <a href="./GoogleAPIFirstTest.html" role="button" id="mapbutton" class="btn btn-lg btn-info" onclick="getMapAPIgoing()">Bike Path</a>
                 </div>     
             </div>
             
